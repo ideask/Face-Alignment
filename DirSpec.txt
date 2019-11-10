@@ -1,0 +1,31 @@
+.
+├── CheckPoints
+│   └── Model1
+│       ├── snapshot
+│       ├── store
+│       ├── tensorboard
+│       └── train.logs
+├── Data
+│   ├── DataPreparation
+│   │   └── ReadSrcDataAndAugmentation
+│   ├── ImageSrc
+│   ├── TestData
+│   │   └── label.txt
+│   ├── TrainData
+│   │   └── label.txt
+│   └── ValiData
+│       └── label.txt
+├── DataLoader
+│   └── Model1DL.py
+├── DirSpec.txt
+├── Models
+│   └── Model1.py
+├── README.md
+├── Requirements.txt
+├── Results
+│   └── Model1
+├── Test.py
+├── Train.py
+└── Utils
+
+16 directories, 12 files
