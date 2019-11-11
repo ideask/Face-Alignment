@@ -54,7 +54,7 @@ class ImageDate():
                 lines = f.readlines()
                 assert len(lines) == 1
                 mirror_idx = lines[0].strip().split(',')
-                # 保存镜像后坐标点的序列
+                # 保存landmarks镜像后坐标点的序列
                 mirror_idx = list(map(int, mirror_idx))
         # 求原始坐标的最小值（原始最左下角）
         xy = np.min(self.landmark, axis=0).astype(np.int32)
@@ -67,11 +67,11 @@ class ImageDate():
         img = cv2.imread(self.path)
         # 扩大ROI 0.2倍(以最长的边 * 1.2作为boxsize)
         boxsize = int(np.max(wh)*1.2)
-        # 求取扩展后的最左下点
+        # 求取扩展后的最左上点
         xy = center - boxsize//2
-        # 扩展后最左下点
+        # 扩展后最左上点
         x1, y1 = xy
-        # 扩展后最右上点
+        # 扩展后最右下点
         x2, y2 = xy + boxsize
         # 获取图像长宽
         height, width, _ = img.shape
@@ -128,9 +128,9 @@ class ImageDate():
 
                 # np.ptp(axis=0)是同一列中不同列的最大值和最小值的差值，求得新宽度和高度
                 wh = np.ptp(landmark, axis=0).astype(np.int32) + 1
-                # np.ceil向上取整, 运算称为Ceiling，扩展0.25倍，然后随机选取
+                # np.ceil向上取整, 运算称为Ceiling，扩展1.25倍，然后随机选取
                 size = np.random.randint(int(np.min(wh)), np.ceil(np.max(wh) * 1.25))
-                # 计算新的左下角坐标
+                # 计算新的左上角坐标
                 xy = np.asarray((cx - size // 2, cy - size//2), dtype=np.int32)
                 # 归一化坐标点
                 landmark = (landmark - xy) / size
@@ -186,7 +186,7 @@ class ImageDate():
             for index in TRACKED_POINTS:
                 euler_angles_landmark.append(lanmark[index])
             euler_angles_landmark = np.asarray(euler_angles_landmark).reshape((-1, 28))
-            # pfld/utils.py近似计算欧拉角的函数
+            # Utils/utils.py近似计算欧拉角的函数
             pitch, yaw, roll = calculate_pitch_yaw_roll(euler_angles_landmark[0])
             # 将欧拉角保存为float数组
             euler_angles = np.asarray((pitch, yaw, roll), dtype=np.float32)
@@ -231,7 +231,7 @@ def get_dataset_list(outDir, landmarkDir, is_train):
     with open(os.path.join(outDir, 'labels.txt'), 'w') as f:
         for label in labels:
             f.writelines(label)
-
+# 筛选无效图片的label
 def removeInvalidImg(srcImgList):
     resList= []
     for item in srcImgList:
@@ -239,7 +239,7 @@ def removeInvalidImg(srcImgList):
         if os.path.isfile(picDir):
             resList.append(item)
     return resList
-
+# 按比例ratio生成train.txt test.txt
 def loadMetaDataList(SrcImage, ratio):
     folderList = ['I', 'II']
     tmpList = []

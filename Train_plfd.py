@@ -1,22 +1,13 @@
 #!/usr/bin/env python3
 #-*- coding:utf-8 -*-
-
 import argparse
 import logging
-from pathlib import Path
-import time
 import os
-
 import numpy as np
 import torch
-
-from torch.utils import data
 from torch.utils.data import DataLoader
-import torchvision
 from torchvision import datasets, transforms
-import torchvision.utils as vutils
 from tensorboardX import SummaryWriter
-
 from DataLoader.dataloader import MyDatasets
 from Models.pfld import PFLDInference, AuxiliaryNet
 from Loss.loss import PFLDLoss

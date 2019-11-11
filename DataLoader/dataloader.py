@@ -25,7 +25,7 @@ class MyDatasets(data.Dataset):
         self.img = cv2.imread(self.line[0])
         self.landmark = np.asarray(self.line[1:43], dtype=np.float32)
         self.euler_angle = np.asarray(self.line[43:], dtype=np.float32)
-        # 数据预处理已经做了数据增强了，所以这里只将数据专程tensor
+        # 数据预处理已经做了数据增强了，所以这里只将数据转成tensor
         if self.transforms:
             self.img = self.transforms(self.img)
         return (self.img, self.landmark, self.euler_angle)
