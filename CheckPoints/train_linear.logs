@@ -1,0 +1,153 @@
+[2019-11-12 17:02:29,727] [p8255] [Train_linear.py:19] [INFO] workers: 8
+[2019-11-12 17:02:29,727] [p8255] [Train_linear.py:19] [INFO] devices_id: 0
+[2019-11-12 17:02:29,727] [p8255] [Train_linear.py:19] [INFO] test_initial: False
+[2019-11-12 17:02:29,728] [p8255] [Train_linear.py:19] [INFO] base_lr: 0.0001
+[2019-11-12 17:02:29,728] [p8255] [Train_linear.py:19] [INFO] weight_decay: 1e-06
+[2019-11-12 17:02:29,728] [p8255] [Train_linear.py:19] [INFO] lr_patience: 40
+[2019-11-12 17:02:29,728] [p8255] [Train_linear.py:19] [INFO] start_epoch: 1
+[2019-11-12 17:02:29,728] [p8255] [Train_linear.py:19] [INFO] end_epoch: 1000
+[2019-11-12 17:02:29,728] [p8255] [Train_linear.py:19] [INFO] snapshot: ./CheckPoints/snapshot_linear/
+[2019-11-12 17:02:29,728] [p8255] [Train_linear.py:19] [INFO] log_file: ./CheckPoints/train_linear.logs
+[2019-11-12 17:02:29,728] [p8255] [Train_linear.py:19] [INFO] tensorboard: ./CheckPoints/tensorboard_linear
+[2019-11-12 17:02:29,729] [p8255] [Train_linear.py:19] [INFO] resume: 
+[2019-11-12 17:02:29,729] [p8255] [Train_linear.py:19] [INFO] dataroot: ./Data/ODATA/TrainData/labels.txt
+[2019-11-12 17:02:29,729] [p8255] [Train_linear.py:19] [INFO] val_dataroot: ./Data/ODATA/TestData/labels.txt
+[2019-11-12 17:02:29,729] [p8255] [Train_linear.py:19] [INFO] train_batchsize: 128
+[2019-11-12 17:02:29,729] [p8255] [Train_linear.py:19] [INFO] val_batchsize: 8
+[2019-11-12 17:03:00,558] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_1.pth.tar
+[2019-11-12 17:03:20,316] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_2.pth.tar
+[2019-11-12 17:03:39,727] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_3.pth.tar
+[2019-11-12 17:03:59,508] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_4.pth.tar
+[2019-11-12 17:04:19,512] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_5.pth.tar
+[2019-11-12 17:04:39,727] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_6.pth.tar
+[2019-11-12 17:05:00,000] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_7.pth.tar
+[2019-11-12 17:05:20,795] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_8.pth.tar
+[2019-11-12 17:05:40,625] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_9.pth.tar
+[2019-11-12 17:06:00,492] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_10.pth.tar
+[2019-11-12 17:06:20,480] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_11.pth.tar
+[2019-11-12 17:06:40,252] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_12.pth.tar
+[2019-11-12 17:07:00,643] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_13.pth.tar
+[2019-11-12 17:07:21,338] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_14.pth.tar
+[2019-11-12 17:07:41,645] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_15.pth.tar
+[2019-11-12 17:08:04,752] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_16.pth.tar
+[2019-11-12 17:08:28,707] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_17.pth.tar
+[2019-11-12 17:08:51,378] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_18.pth.tar
+[2019-11-12 17:09:13,037] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_19.pth.tar
+[2019-11-12 17:09:33,979] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_20.pth.tar
+[2019-11-12 17:09:54,689] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_21.pth.tar
+[2019-11-12 17:10:15,345] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_22.pth.tar
+[2019-11-12 17:10:36,230] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_23.pth.tar
+[2019-11-12 17:10:56,654] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_24.pth.tar
+[2019-11-12 17:11:16,989] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_25.pth.tar
+[2019-11-12 17:11:36,937] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_26.pth.tar
+[2019-11-12 17:11:56,508] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_27.pth.tar
+[2019-11-12 17:12:16,165] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_28.pth.tar
+[2019-11-12 17:12:35,985] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_29.pth.tar
+[2019-11-12 17:12:55,649] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_30.pth.tar
+[2019-11-12 17:13:15,411] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_31.pth.tar
+[2019-11-12 17:13:34,894] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_32.pth.tar
+[2019-11-12 17:13:54,549] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_33.pth.tar
+[2019-11-12 17:14:14,102] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_34.pth.tar
+[2019-11-12 17:14:33,114] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_35.pth.tar
+[2019-11-12 17:14:52,667] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_36.pth.tar
+[2019-11-12 17:15:12,467] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_37.pth.tar
+[2019-11-12 17:15:32,180] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_38.pth.tar
+[2019-11-12 17:15:52,102] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_39.pth.tar
+[2019-11-12 17:16:11,915] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_40.pth.tar
+[2019-11-12 17:16:32,196] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_41.pth.tar
+[2019-11-12 17:16:51,695] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_42.pth.tar
+[2019-11-12 17:17:10,964] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_43.pth.tar
+[2019-11-12 17:17:30,678] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_44.pth.tar
+[2019-11-12 17:17:50,332] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_45.pth.tar
+[2019-11-12 17:18:09,908] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_46.pth.tar
+[2019-11-12 17:18:29,564] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_47.pth.tar
+[2019-11-12 17:18:49,477] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_48.pth.tar
+[2019-11-12 17:19:09,147] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_49.pth.tar
+[2019-11-12 17:19:28,700] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_50.pth.tar
+[2019-11-12 17:19:48,610] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_51.pth.tar
+[2019-11-12 17:20:08,305] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_52.pth.tar
+[2019-11-12 17:20:28,032] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_53.pth.tar
+[2019-11-12 17:20:47,651] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_54.pth.tar
+[2019-11-12 17:21:07,404] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_55.pth.tar
+[2019-11-12 17:21:26,916] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_56.pth.tar
+[2019-11-12 17:21:46,575] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_57.pth.tar
+[2019-11-12 17:22:06,178] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_58.pth.tar
+[2019-11-12 17:22:25,889] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_59.pth.tar
+[2019-11-12 17:22:45,691] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_60.pth.tar
+[2019-11-12 17:23:05,011] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_61.pth.tar
+[2019-11-12 17:23:24,752] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_62.pth.tar
+[2019-11-12 17:23:44,428] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_63.pth.tar
+[2019-11-12 17:24:04,037] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_64.pth.tar
+[2019-11-12 17:24:23,760] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_65.pth.tar
+[2019-11-12 17:24:43,359] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_66.pth.tar
+[2019-11-12 17:25:03,328] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_67.pth.tar
+[2019-11-12 17:25:23,038] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_68.pth.tar
+[2019-11-12 17:25:42,426] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_69.pth.tar
+[2019-11-12 17:26:01,963] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_70.pth.tar
+[2019-11-12 17:26:21,590] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_71.pth.tar
+[2019-11-12 17:26:41,011] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_72.pth.tar
+[2019-11-12 17:27:00,476] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_73.pth.tar
+[2019-11-12 17:27:20,154] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_74.pth.tar
+[2019-11-12 17:27:40,179] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_75.pth.tar
+[2019-11-12 17:27:59,667] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_76.pth.tar
+[2019-11-12 17:28:19,227] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_77.pth.tar
+[2019-11-12 17:28:38,860] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_78.pth.tar
+[2019-11-12 17:28:58,113] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_79.pth.tar
+[2019-11-12 17:29:17,996] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_80.pth.tar
+[2019-11-12 17:29:37,543] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_81.pth.tar
+[2019-11-12 17:29:57,132] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_82.pth.tar
+[2019-11-12 17:30:17,028] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_83.pth.tar
+[2019-11-12 17:30:36,666] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_84.pth.tar
+[2019-11-12 17:30:56,474] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_85.pth.tar
+[2019-11-12 17:31:16,153] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_86.pth.tar
+[2019-11-12 17:31:35,523] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_87.pth.tar
+[2019-11-12 17:31:55,263] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_88.pth.tar
+[2019-11-12 17:32:14,754] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_89.pth.tar
+[2019-11-12 17:32:34,268] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_90.pth.tar
+[2019-11-12 17:32:53,796] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_91.pth.tar
+[2019-11-12 17:33:13,804] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_92.pth.tar
+[2019-11-12 17:33:33,667] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_93.pth.tar
+[2019-11-12 17:33:53,552] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_94.pth.tar
+[2019-11-12 17:34:13,544] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_95.pth.tar
+[2019-11-12 17:34:33,312] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_96.pth.tar
+[2019-11-12 17:34:53,232] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_97.pth.tar
+[2019-11-12 17:35:13,061] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_98.pth.tar
+[2019-11-12 17:35:32,767] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_99.pth.tar
+[2019-11-12 17:35:52,574] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_100.pth.tar
+[2019-11-12 17:36:12,557] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_101.pth.tar
+[2019-11-12 17:36:32,192] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_102.pth.tar
+[2019-11-12 17:36:51,735] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_103.pth.tar
+[2019-11-12 17:37:11,223] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_104.pth.tar
+[2019-11-12 17:37:31,195] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_105.pth.tar
+[2019-11-12 17:37:50,688] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_106.pth.tar
+[2019-11-12 17:38:10,132] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_107.pth.tar
+[2019-11-12 17:38:30,297] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_108.pth.tar
+[2019-11-12 17:38:49,597] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_109.pth.tar
+[2019-11-12 17:39:09,271] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_110.pth.tar
+[2019-11-12 17:39:28,573] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_111.pth.tar
+[2019-11-12 17:39:48,295] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_112.pth.tar
+[2019-11-12 17:40:08,187] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_113.pth.tar
+[2019-11-12 17:40:27,642] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_114.pth.tar
+[2019-11-12 17:40:47,261] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_115.pth.tar
+[2019-11-12 17:41:06,789] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_116.pth.tar
+[2019-11-12 17:41:26,340] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_117.pth.tar
+[2019-11-12 17:41:46,123] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_118.pth.tar
+[2019-11-12 17:42:06,013] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_119.pth.tar
+[2019-11-12 17:42:25,611] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_120.pth.tar
+[2019-11-12 17:42:45,241] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_121.pth.tar
+[2019-11-12 17:43:05,275] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_122.pth.tar
+[2019-11-12 17:43:24,753] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_123.pth.tar
+[2019-11-12 17:43:44,372] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_124.pth.tar
+[2019-11-12 17:44:04,445] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_125.pth.tar
+[2019-11-12 17:44:24,267] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_126.pth.tar
+[2019-11-12 17:44:43,611] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_127.pth.tar
+[2019-11-12 17:45:03,401] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_128.pth.tar
+[2019-11-12 17:45:23,146] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_129.pth.tar
+[2019-11-12 17:45:42,666] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_130.pth.tar
+[2019-11-12 17:46:02,317] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_131.pth.tar
+[2019-11-12 17:46:21,748] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_132.pth.tar
+[2019-11-12 17:46:41,671] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_133.pth.tar
+[2019-11-12 17:47:01,524] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_134.pth.tar
+[2019-11-12 17:47:21,341] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_135.pth.tar
+[2019-11-12 17:47:41,153] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_136.pth.tar
+[2019-11-12 17:48:00,870] [p8255] [Train_linear.py:24] [INFO] Save checkpoint to ./CheckPoints/snapshot_linear/checkpoint_epoch_137.pth.tar

@@ -1,31 +1,103 @@
 .
+├── CameraTest.py
 ├── CheckPoints
-│   └── Model1
-│       ├── snapshot
-│       ├── store
-│       ├── tensorboard
-│       └── train.logs
+│   ├── snapshot_linear
+│   │   └── checkpoint.pth.tar
+│   ├── snapshot_pfld
+│   │   └── checkpoint.pth.tar
+│   ├── tensorboard_linear
+│   │   ├── data
+│   │   │   └── loss
+│   │   │       ├── train loss
+│   │   │       │   └── events.out.tfevents.1573549381.kenny-desktop
+│   │   │       └── val loss
+│   │   │           └── events.out.tfevents.1573549381.kenny-desktop
+│   │   └── events.out.tfevents.1573549359.kenny-desktop
+│   ├── tensorboard_pfld
+│   │   ├── data
+│   │   │   └── loss
+│   │   │       ├── train loss
+│   │   │       │   └── events.out.tfevents.1573561640.kenny-desktop
+│   │   │       └── val loss
+│   │   │           └── events.out.tfevents.1573561640.kenny-desktop
+│   │   └── events.out.tfevents.1573561341.kenny-desktop
+│   ├── train_linear.logs
+│   └── train_pfld.logs
 ├── Data
-│   ├── DataPreparation
-│   │   └── ReadSrcDataAndAugmentation
-│   ├── ImageSrc
-│   ├── TestData
-│   │   └── label.txt
-│   ├── TrainData
-│   │   └── label.txt
-│   └── ValiData
-│       └── label.txt
+│   ├── ODATA
+│   │   ├── linear.py
+│   │   ├── Mirror21.txt
+│   │   ├── pfld.py
+│   │   ├── SrcImage
+│   │   │   ├── I
+│   │   │   └── II
+│   │   ├── TestData
+│   │   │   ├── imgs
+│   │   │   └── labels.txt
+│   │   └── TrainData
+│   │       ├── imgs
+│   │       └── labels.txt
+│   └── WFLW
+│       ├── Mirror98.txt
+│       ├── pfld.py
+│       ├── WFLW_annotations
+│       │   ├── list_98pt_rect_attr_train_test
+│       │   │   ├── list_98pt_rect_attr_test.txt
+│       │   │   ├── list_98pt_rect_attr_train.txt
+│       │   │   └── README
+│       │   └── list_98pt_test
+│       │       ├── list_98pt_test_blur.txt
+│       │       ├── list_98pt_test_expression.txt
+│       │       ├── list_98pt_test_illumination.txt
+│       │       ├── list_98pt_test_largepose.txt
+│       │       ├── list_98pt_test_makeup.txt
+│       │       ├── list_98pt_test_occlusion.txt
+│       │       ├── list_98pt_test.txt
+│       │       └── README
+│       └── WFLW_images
 ├── DataLoader
-│   └── Model1DL.py
+│   ├── linear.py
+│   ├── pfld.py
+│   └── __pycache__
+│       ├── linear.cpython-37.pyc
+│       └── pfld.cpython-37.pyc
 ├── DirSpec.txt
+├── Loss
+│   ├── linear.py
+│   ├── pfld.py
+│   └── __pycache__
+│       ├── linear.cpython-37.pyc
+│       └── pfld.cpython-37.pyc
 ├── Models
-│   └── Model1.py
+│   ├── linear.py
+│   ├── pfld.py
+│   └── __pycache__
+│       ├── linear.cpython-37.pyc
+│       └── pfld.cpython-37.pyc
+├── Mtcnn
+│   ├── detector.py
+│   ├── onet.npy
+│   ├── pnet.npy
+│   └── rnet.npy
 ├── README.md
 ├── Requirements.txt
 ├── Results
-│   └── Model1
-├── Test.py
-├── Train.py
+│   ├── LinearModel
+│   │   ├── loss.png
+│   │   ├── result1.png
+│   │   └── result2.png
+│   └── PfldModel
+│       ├── loss.png
+│       └── result.png
+├── ShowTime.py
+├── Test_linear.py
+├── Test_pfld.py
+├── Train_linear.py
+├── Train_pfld.py
 └── Utils
+    ├── parallel.py
+    ├── __pycache__
+    │   └── utils.cpython-37.pyc
+    └── utils.py
 
-16 directories, 12 files
+39 directories, 61 files

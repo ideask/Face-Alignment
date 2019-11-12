@@ -1,0 +1,30 @@
+[2019-11-12 20:22:17,727] [p24966] [Train_pfld.py:20] [INFO] workers: 8
+[2019-11-12 20:22:17,727] [p24966] [Train_pfld.py:20] [INFO] devices_id: 0
+[2019-11-12 20:22:17,727] [p24966] [Train_pfld.py:20] [INFO] test_initial: False
+[2019-11-12 20:22:17,727] [p24966] [Train_pfld.py:20] [INFO] base_lr: 0.0001
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] weight_decay: 1e-06
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] lr_patience: 40
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] start_epoch: 1
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] end_epoch: 1000
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] snapshot: ./CheckPoints/snapshot_pfld/
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] log_file: ./CheckPoints/train_pfld.logs
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] tensorboard: ./CheckPoints/tensorboard_pfld
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] resume: 
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] dataroot: ./Data/ODATA/TrainData/labels.txt
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] val_dataroot: ./Data/ODATA/TestData/labels.txt
+[2019-11-12 20:22:17,728] [p24966] [Train_pfld.py:20] [INFO] train_batchsize: 128
+[2019-11-12 20:22:17,729] [p24966] [Train_pfld.py:20] [INFO] val_batchsize: 8
+[2019-11-12 20:27:18,538] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_1.pth.tar
+[2019-11-12 20:32:04,007] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_2.pth.tar
+[2019-11-12 20:36:49,445] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_3.pth.tar
+[2019-11-12 20:41:35,056] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_4.pth.tar
+[2019-11-12 20:46:20,595] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_5.pth.tar
+[2019-11-12 20:51:06,099] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_6.pth.tar
+[2019-11-12 20:55:51,576] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_7.pth.tar
+[2019-11-12 21:00:37,132] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_8.pth.tar
+[2019-11-12 21:05:22,679] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_9.pth.tar
+[2019-11-12 21:10:08,504] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_10.pth.tar
+[2019-11-12 21:14:54,431] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_11.pth.tar
+[2019-11-12 21:19:40,191] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_12.pth.tar
+[2019-11-12 21:24:26,318] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_13.pth.tar
+[2019-11-12 21:29:15,986] [p24966] [Train_pfld.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_pfld/checkpoint_epoch_14.pth.tar
