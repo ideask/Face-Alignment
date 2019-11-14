@@ -1,0 +1,27 @@
+[2019-11-14 22:12:54,448] [p17637] [Train_resnet.py:20] [INFO] workers: 8
+[2019-11-14 22:12:54,448] [p17637] [Train_resnet.py:20] [INFO] devices_id: 1
+[2019-11-14 22:12:54,448] [p17637] [Train_resnet.py:20] [INFO] test_initial: False
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] base_lr: 0.0001
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] weight_decay: 1e-06
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] lr_patience: 40
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] start_epoch: 1
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] end_epoch: 1000
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] snapshot: ./CheckPoints/snapshot_resnet/
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] log_file: ./CheckPoints/train_resnet.logs
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] tensorboard: ./CheckPoints/tensorboard_resnet
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] resume: 
+[2019-11-14 22:12:54,449] [p17637] [Train_resnet.py:20] [INFO] dataroot: ./Data/ODATA/TrainData/labels.txt
+[2019-11-14 22:12:54,450] [p17637] [Train_resnet.py:20] [INFO] val_dataroot: ./Data/ODATA/TestData/labels.txt
+[2019-11-14 22:12:54,450] [p17637] [Train_resnet.py:20] [INFO] train_batchsize: 64
+[2019-11-14 22:12:54,450] [p17637] [Train_resnet.py:20] [INFO] val_batchsize: 8
+[2019-11-14 22:26:46,323] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_1.pth.tar
+[2019-11-14 22:40:05,260] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_2.pth.tar
+[2019-11-14 22:53:28,867] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_3.pth.tar
+[2019-11-14 23:06:46,837] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_4.pth.tar
+[2019-11-14 23:19:59,345] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_5.pth.tar
+[2019-11-14 23:33:15,451] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_6.pth.tar
+[2019-11-14 23:46:28,271] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_7.pth.tar
+[2019-11-14 23:59:47,431] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_8.pth.tar
+[2019-11-15 00:13:00,325] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_9.pth.tar
+[2019-11-15 00:26:16,237] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_10.pth.tar
+[2019-11-15 00:39:30,066] [p17637] [Train_resnet.py:25] [INFO] Save checkpoint to ./CheckPoints/snapshot_resnet/checkpoint_epoch_11.pth.tar
