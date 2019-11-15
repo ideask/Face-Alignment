@@ -107,7 +107,7 @@ def main(args):
     auxiliarynet = AuxiliaryNet().cuda()
     if args.resume != '':
         logging.info('Load the checkpoint:{}'.format(args.resume))
-        checkpoint = torch.load(args.model_path)
+        checkpoint = torch.load(args.resume)
         pfld_backbone.load_state_dict(checkpoint['pfld_backbone'])
         auxiliarynet.load_state_dict(checkpoint['auxiliarynet'])
     criterion = PFLDLoss()

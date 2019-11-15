@@ -95,7 +95,7 @@ def main(args):
     resnet_backbone = resnet18(num_classes=42).cuda()
     if args.resume != '':
         logging.info('Load the checkpoint:{}'.format(args.resume))
-        checkpoint = torch.load(args.model_path)
+        checkpoint = torch.load(args.resume)
         resnet_backbone.load_state_dict(checkpoint['resnet_backbone'])
     criterion = ResnetLoss()
     optimizer = torch.optim.Adam(

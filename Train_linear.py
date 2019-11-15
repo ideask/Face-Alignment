@@ -98,7 +98,7 @@ def main(args):
     linear_backbone = LinearNet().cuda()
     if args.resume != '':
         logging.info('Load the checkpoint:{}'.format(args.resume))
-        checkpoint = torch.load(args.model_path)
+        checkpoint = torch.load(args.resume)
         linear_backbone.load_state_dict(checkpoint['linear_backbone'])
     criterion = LinearLoss()
     optimizer = torch.optim.Adam(
