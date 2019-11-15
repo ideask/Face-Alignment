@@ -46,8 +46,8 @@ Using Pytorch as a framework, based on Linear model,ResNet18 or MobileNetV2
   - Run default parms `python Test_pfld.py` 
   
 ### Result
-Predict landmarks:Green Points
-Ground Truth landmarks:Red Points
+##### Predict landmarks:Green Points
+##### Ground Truth landmarks:Red Points
 #### Linear Model:
 - Loss
 
