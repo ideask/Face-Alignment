@@ -46,6 +46,8 @@ Using Pytorch as a framework, based on Linear model,ResNet18 or MobileNetV2
   - Run default parms `python Test_pfld.py` 
   
 ### Result
+Predict landmarks:Green Points
+Ground Truth landmarks:Red Points
 #### Linear Model:
 - Loss
 
@@ -74,6 +76,8 @@ Using Pytorch as a framework, based on Linear model,ResNet18 or MobileNetV2
   ![](./Results/PfldModel/result.png)
 ### Reference
 
+- [PFLD Tensorflow Implementation](https://github.com/guoqiangqi/PFLD)
+- [PFLD pytorch Implementation](https://github.com/polarisZhao/PFLD-pytorch)
 - [pytorch](https://github.com/pytorch/pytorch)
 - [pytorch-book](https://github.com/chenyuntc/pytorch-book)
 
