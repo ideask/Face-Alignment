@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+#!/usr/bin/env python3
+#-*- coding:utf-8 -*-
 import os
 import random as rd
 import numpy as np
@@ -267,8 +268,9 @@ if __name__ == '__main__':
     root_dir = os.path.dirname(os.path.realpath(__file__))
     SrcImage = os.path.join(root_dir, 'SrcImage')
     loadMetaDataList(SrcImage, 0.7)
-    Mirror_file = 'Mirror21.txt'
-    landmarkDirs = ['SrcImage/test_linear.txt', 'SrcImage/train_linear.txt']
+    Mirror_file = root_dir + '/' + 'Mirror21.txt'
+    landmarkDirs = ['test_linear.txt', 'train_linear.txt']
+    landmarkDirs = list(map((root_dir + '/' + 'SrcImage' + '/').__add__, landmarkDirs))
 
     outDirs = ['TestData', 'TrainData']
     for landmarkDir, outDir in zip(landmarkDirs, outDirs):
