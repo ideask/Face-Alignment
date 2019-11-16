@@ -24,9 +24,9 @@ class Normalize(object):
         Then do channel normalization: (image - mean) / std_variation
     """
     def __call__(self, sample):
-        image, landmarks = sample['image'], sample['landmarks']
+        image, landmarks, facecls = sample['image'], sample['landmarks'], sample['facecls']
         image = channel_norm(image)
-        return {'image': image, 'landmarks': landmarks}
+        return {'image': image, 'landmarks': landmarks, 'facecls':facecls}
 
 
 class ToTensor(object):
@@ -35,14 +35,14 @@ class ToTensor(object):
         Tensors channel sequence: N x C x H x W
     """
     def __call__(self, sample):
-        image, landmarks = sample['image'], sample['landmarks']
+        image, landmarks, facecls = sample['image'], sample['landmarks'], sample['facecls']
         # swap color axis because
         # numpy image: H x W x C
         # torch image: C X H X W
         # image = image.transpose((2, 0, 1))
         image = np.expand_dims(image, axis=0)
         return {'image': torch.from_numpy(image),
-                'landmarks': torch.from_numpy(landmarks)}
+                'landmarks': torch.from_numpy(landmarks), 'facecls':torch.from_numpy(facecls)}
 
 def load_data(file_list):
     if 'Train' in file_list or 'train' in file_list:
@@ -64,15 +64,22 @@ class MyDatasets(data.Dataset):
         self.landmarks = None
         self.transform = transform
         self.sample = None
+        self.facecls = None
         with open(file_list, 'r') as f:
             self.lines = f.readlines()
 
     def __getitem__(self, index):
         self.line = self.lines[index].strip().split()
         # self.img = cv2.imread(self.line[0])
+        self.facecls = np.asarray(self.line[-1], dtype=np.float32)
         self.img = np.asarray(Image.open(self.line[0]).convert('L'), dtype=np.float32)
-        self.landmark = np.asarray(self.line[1:43], dtype=np.float32)
-        self.sample = {'image': self.img, 'landmarks': self.landmark}
+        if self.facecls == 1:
+            self.landmark = np.asarray(self.line[1:43], dtype=np.float32)
+
+        elif self.facecls == 0:
+            self.landmark = np.asarray([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], dtype=np.float32)
+
+        self.sample = {'image': self.img, 'landmarks': self.landmark, 'facecls': self.facecls}
         # 数据预处理已经做了数据增强了，所以这里只将数据转成tensor
         if self.transform:
             self.sample = self.transform(self.sample)
@@ -92,13 +99,15 @@ if __name__ == '__main__':
         for i in range(len(samples['image'])):
             img = samples['image'][i]
             landmarks = samples['landmarks'][i]
+            facecls = samples['facecls'][i]
             img = img.numpy() #Tensor to array
             img = np.squeeze(img) #delete the empty asix
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
             img = cv2.resize(img, (img_size, img_size))
-            landmarks = landmarks.reshape(21, 2)
-            for keypoint in landmarks:
-                cv2.circle(img, (keypoint[0]* img_size, keypoint[1]* img_size),  1, (0, 0, 255), 3)
+            if facecls == 1:
+                landmarks = landmarks.reshape(21, 2)
+                for keypoint in landmarks:
+                    cv2.circle(img, (keypoint[0]* img_size, keypoint[1]* img_size),  1, (0, 0, 255), 3)
             cv2.imshow('result', img)
             key = cv2.waitKey()
             cv2.destroyAllWindows()

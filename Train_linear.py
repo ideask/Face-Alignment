@@ -8,9 +8,10 @@ import torch
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
 from DataLoader.linear import load_data
-from Models.linear import LinearNet
+from Models.linear import LinearNet, AuxiliaryNet
 from Loss.linear import LinearLoss
 from Utils.utils import AverageMeter
+from torch import nn
 # from utils.parallel import DataParallelModel, DataParallelCriterion
 
 def print_args(args):
@@ -33,23 +34,31 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected')
 
 
-def train(train_loader, linear_backbone, criterion, optimizer, cur_epoch):
+def train(train_loader, linear_backbone, auxiliarynet, criterion, optimizer, cur_epoch):
     losses = AverageMeter()
 
     for samples in train_loader:
         img = samples['image']
         landmark_gt = samples['landmarks']
+        cls_gt = samples['facecls']
+        cls_gt = cls_gt.reshape(-1, 1)
         img.requires_grad = False
         img = img.cuda(non_blocking=True)
+
+        cls_gt.requires_grad = False
+        cls_gt = cls_gt.cuda(non_blocking=True)
 
         landmark_gt.requires_grad = False
         landmark_gt = landmark_gt.cuda(non_blocking=True)
 
         linear_backbone = linear_backbone.cuda()
+        auxiliarynet = auxiliarynet.cuda()
 
-        landmarks = linear_backbone(img)
-        loss = criterion(landmark_gt, landmarks, args.train_batchsize)
+        landmarks, out1 = linear_backbone(img)
 
+        cls = auxiliarynet(out1)
+
+        loss = criterion(landmark_gt, landmarks, cls_gt, cls, args.train_batchsize)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -58,13 +67,19 @@ def train(train_loader, linear_backbone, criterion, optimizer, cur_epoch):
     return loss
 
 
-def validate(my_val_dataloader, linear_backbone, criterion, cur_epoch):
+def validate(my_val_dataloader, linear_backbone, auxiliarynet, criterion, cur_epoch):
     linear_backbone.eval()
+    auxiliarynet.eval()
     losses = []
     with torch.no_grad():
         for samples in my_val_dataloader:
             img = samples['image']
             landmark_gt = samples['landmarks']
+            cls_gt = samples['facecls']
+            cls_gt = cls_gt.reshape(-1, 1)
+            cls_gt.requires_grad = False
+            cls_gt = cls_gt.cuda(non_blocking=True)
+
             img.requires_grad = False
             img = img.cuda(non_blocking=True)
 
@@ -72,11 +87,14 @@ def validate(my_val_dataloader, linear_backbone, criterion, cur_epoch):
             landmark_gt = landmark_gt.cuda(non_blocking=True)
 
             linear_backbone = linear_backbone.cuda()
+            auxiliarynet = auxiliarynet.cuda()
 
-            landmark = linear_backbone(img)
+            landmark, out1 = linear_backbone(img)
+            cls = auxiliarynet(out1)
 
-            loss = torch.mean(
-                torch.sum((landmark_gt - landmark)**2,axis=1))
+            cls_loss = nn.BCEWithLogitsLoss()
+
+            loss = torch.mean(torch.sum((landmark_gt - landmark)**2,axis=1)) + cls_loss(cls, cls_gt)
             losses.append(loss.cpu().numpy())
 
     return np.mean(losses)
@@ -96,14 +114,19 @@ def main(args):
 
     # Step 2: model, criterion, optimizer, scheduler
     linear_backbone = LinearNet().cuda()
+    auxiliarynet = AuxiliaryNet().cuda()
+
     if args.resume != '':
         logging.info('Load the checkpoint:{}'.format(args.resume))
         checkpoint = torch.load(args.resume)
         linear_backbone.load_state_dict(checkpoint['linear_backbone'])
+        auxiliarynet.load_state_dict(checkpoint['auxiliarynet'])
     criterion = LinearLoss()
     optimizer = torch.optim.Adam(
         [{
             'params': linear_backbone.parameters()
+        }, {
+            'params': auxiliarynet.parameters()
         }],
         lr=args.base_lr,
         weight_decay=args.weight_decay)
@@ -129,16 +152,16 @@ def main(args):
     # step 4: run
     writer = SummaryWriter(args.tensorboard)
     for epoch in range(args.start_epoch, args.end_epoch + 1):
-        train_loss = train(dataloader, linear_backbone,
-                                      criterion, optimizer, epoch)
+        train_loss = train(dataloader, linear_backbone, auxiliarynet, criterion, optimizer, epoch)
         filename = os.path.join(
             str(args.snapshot), "checkpoint_epoch_" + str(epoch) + '.pth.tar')
         save_checkpoint({
             'epoch': epoch,
-            'linear_backbone': linear_backbone.state_dict()
+            'linear_backbone': linear_backbone.state_dict(),
+            'auxiliarynet': auxiliarynet.state_dict()
         }, filename)
 
-        val_loss = validate(my_val_dataloader, linear_backbone, criterion, epoch)
+        val_loss = validate(my_val_dataloader, linear_backbone, auxiliarynet, criterion, epoch)
 
         scheduler.step(val_loss)
         # 第一个参数可以简单理解为保存图的名称，第二个参数是可以理解为Y轴数据，第三个参数可以理解为X轴数据
@@ -192,7 +215,7 @@ def parse_args():
         default='./Data/ODATA/TestData/labels.txt',
         type=str,
         metavar='PATH')
-    parser.add_argument('--train_batchsize', default=128, type=int)
+    parser.add_argument('--train_batchsize', default=256, type=int)
     parser.add_argument('--val_batchsize', default=8, type=int)
     args = parser.parse_args()
     return args

@@ -3,6 +3,28 @@
 import torch
 import torch.nn as nn
 
+class AuxiliaryNet(nn.Module):
+    def __init__(self):
+        super(AuxiliaryNet, self).__init__()
+        self.conv1 = nn.Conv2d(16, 24, 3, 1, 0)
+        self.bn1 = nn.BatchNorm2d(24)
+        self.prelu1 = nn.PReLU()
+        self.conv2 = nn.Conv2d(24, 24, 3, 1, 0)
+        self.bn2 = nn.BatchNorm2d(24)
+        self.prelu2 = nn.PReLU()
+        self.fc = nn.Linear(8 * 8 * 24, 1)
+
+
+    def forward(self, x):
+        x = self.prelu1(self.bn1(self.conv1(x)))
+        # print('x: after conv1 and pool shape should be 32x24x10x10: ', x.shape)
+        x = self.prelu2(self.bn2(self.conv2(x)))
+        # print('x: after conv2 and pool shape should be 32x24x8x8: ', x.shape)
+        ip = x.view(-1, 8 * 8 * 24)
+        x = self.fc(ip)
+        return x
+
+
 class LinearNet(nn.Module):
     def __init__(self):
         super(LinearNet, self).__init__()
@@ -45,7 +67,7 @@ class LinearNet(nn.Module):
         # print('b2: after conv2_1 and prelu shape should be 32x16x25x25: ', x.shape) # good
         x = self.prelu2_2(self.conv2_2(x))
         # print('b2: after conv2_2 and prelu shape should be 32x16x23x23: ', x.shape) # good
-        x = self.ave_pool(x)
+        out1 = x = self.ave_pool(x)
         # print('x after block2 and pool shape should be 32x16x12x12: ', x.shape)
         # block 3
         x = self.prelu3_1(self.conv3_1(x))
@@ -70,10 +92,12 @@ class LinearNet(nn.Module):
         ip3 = self.ip3(ip3)
         # print('ip3 after ip3 shape should be 32x42: ', ip3.shape)
 
-        return ip3
+        return ip3, out1
 
 if __name__ == '__main__':
     input = torch.randn(1, 1, 112, 112)
     backbone = LinearNet()
-    landmarks = backbone(input)
-    print("landmarks.shape: {}".format(landmarks.shape))
+    auxnet = AuxiliaryNet()
+    landmarks, out1 = backbone(input)
+    cls = auxnet(out1)
+    print("landmarks.shape: {} cls.shape: {}".format(landmarks.shape, cls.shape))

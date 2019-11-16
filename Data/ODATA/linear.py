@@ -36,10 +36,14 @@ class ImageDate():
         line = line.strip().split()
         #0: 图片路径  1-4: bbox 坐标点;
         #5-46: landmark
-        assert(len(line) == 47)
+        # assert(len(line) == 47)
         self.list = line
+        self.facecls = int(line[-1])
         # 将landmark关键点坐标转成n个点[[x0,y0],[x1,y1],...]
-        self.landmark = np.asarray(list(map(float, line[5:])), dtype=np.float32).reshape(-1, 2)
+        if self.facecls == 1:
+            self.landmark = np.asarray(list(map(float, line[5:-1])), dtype=np.float32).reshape(-1, 2)
+        else:
+            self.landmark = []
         # bbox坐标点
         self.box = np.asarray(list(map(int, map(float, line[1:5]))),dtype=np.int32)
         self.path = line[0]        # 图片路径
@@ -57,63 +61,82 @@ class ImageDate():
                 mirror_idx = lines[0].strip().split(',')
                 # 保存landmarks镜像后坐标点的序列
                 mirror_idx = list(map(int, mirror_idx))
-        # 求原始坐标的最小值（原始最左下角）
-        xy = np.min(self.landmark, axis=0).astype(np.int32)
-        # 求原始坐标的最大值（原始最右上角）
-        zz = np.max(self.landmark, axis=0).astype(np.int32)
-        # 求landmark的宽度和高度
-        wh = zz - xy + 1
-        # 求landmark的中心点(center_x,center_y)
-        center = (xy + wh/2).astype(np.int32)
-        img = cv2.imread(self.path)
-        # 扩大ROI 0.2倍(以最长的边 * 1.2作为boxsize)
-        boxsize = int(np.max(wh)*1.2)
-        # 求取扩展后的最左上点
-        xy = center - boxsize//2
-        # 扩展后最左上点
-        x1, y1 = xy
-        # 扩展后最右下点
-        x2, y2 = xy + boxsize
-        # 获取图像长宽
-        height, width, _ = img.shape
-        # 判断是否超出原始图像
-        dx = max(0, -x1)
-        dy = max(0, -y1)
-        # 避免坐标出现负值
-        x1 = max(0, x1)
-        y1 = max(0, y1)
-        # 判断是否超出原始图像
-        edx = max(0, x2 - width)
-        edy = max(0, y2 - height)
-        # 限制bbox不超过原图
-        x2 = min(width, x2)
-        y2 = min(height, y2)
-        # 不会超出原图（截取bbox的图像数据）
-        imgT = img[y1:y2, x1:x2]
-        # 若超出原始图像就需要对bbox截取的图片进行填充，cv2.BORDER_CONSTANT，扩展区域填充0
-        if (dx > 0 or dy > 0 or edx > 0 or edy > 0):
-            imgT = cv2.copyMakeBorder(imgT, dy, edy, dx, edx, cv2.BORDER_CONSTANT, 0)
-        # 特殊情况：landmark的跨度，宽度为0，或者长度为0的情况（观察）：
-        if imgT.shape[0] == 0 or imgT.shape[1] == 0:
-            imgTT = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-            for x, y in (self.landmark+0.5).astype(np.int32):
-                cv2.circle(imgTT, (x, y), 1, (0, 0, 255))
-            cv2.imshow('0', imgTT)
-            if cv2.waitKey(0) == 27:
-                exit()
-        # 将图片resize到image_size=112，默认112，形状一定要正方形，这个跟landmark有关
-        imgT = cv2.resize(imgT, (self.image_size, self.image_size))
-        # 将关键点坐标归一化，bbox为正方形
-        landmark = (self.landmark - xy)/boxsize
-        # 检查坐标点数据是否满足0<= x,y <= 1
-        assert (landmark >= 0).all(), str(landmark) + str([dx, dy])
-        assert (landmark <= 1).all(), str(landmark) + str([dx, dy])
-        # 添加到图片数据集
-        self.imgs.append(imgT)
-        # 添加到关键点数据集
-        self.landmarks.append(landmark)
+        if self.facecls == 1:
+            # 求原始坐标的最小值（原始最左下角）
+            xy = np.min(self.landmark, axis=0).astype(np.int32)
+            # 求原始坐标的最大值（原始最右上角）
+            zz = np.max(self.landmark, axis=0).astype(np.int32)
+            # 求landmark的宽度和高度
+            wh = zz - xy + 1
+            # 求landmark的中心点(center_x,center_y)
+            center = (xy + wh/2).astype(np.int32)
+            img = cv2.imread(self.path)
+            # 扩大ROI 0.2倍(以最长的边 * 1.2作为boxsize)
+            boxsize = int(np.max(wh)*1.2)
+            # 求取扩展后的最左上点
+            xy = center - boxsize//2
+            # 扩展后最左上点
+            x1, y1 = xy
+            # 扩展后最右下点
+            x2, y2 = xy + boxsize
+            # 获取图像长宽
+            height, width, _ = img.shape
+            # 判断是否超出原始图像
+            dx = max(0, -x1)
+            dy = max(0, -y1)
+            # 避免坐标出现负值
+            x1 = max(0, x1)
+            y1 = max(0, y1)
+            # 判断是否超出原始图像
+            edx = max(0, x2 - width)
+            edy = max(0, y2 - height)
+            # 限制bbox不超过原图
+            x2 = min(width, x2)
+            y2 = min(height, y2)
+            # 不会超出原图（截取bbox的图像数据）
+            imgT = img[y1:y2, x1:x2]
+            # 若超出原始图像就需要对bbox截取的图片进行填充，cv2.BORDER_CONSTANT，扩展区域填充0
+            if (dx > 0 or dy > 0 or edx > 0 or edy > 0):
+                imgT = cv2.copyMakeBorder(imgT, dy, edy, dx, edx, cv2.BORDER_CONSTANT, 0)
+            # 特殊情况：landmark的跨度，宽度为0，或者长度为0的情况（观察）：
+            if imgT.shape[0] == 0 or imgT.shape[1] == 0:
+                imgTT = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+                for x, y in (self.landmark+0.5).astype(np.int32):
+                    cv2.circle(imgTT, (x, y), 1, (0, 0, 255))
+                cv2.imshow('0', imgTT)
+                if cv2.waitKey(0) == 27:
+                    exit()
+            # 将图片resize到image_size=112，默认112，形状一定要正方形，这个跟landmark有关
+            imgT = cv2.resize(imgT, (self.image_size, self.image_size))
+            # 将关键点坐标归一化，bbox为正方形
+            landmark = (self.landmark - xy)/boxsize
+            # 检查坐标点数据是否满足0<= x,y <= 1
+            assert (landmark >= 0).all(), str(landmark) + str([dx, dy])
+            assert (landmark <= 1).all(), str(landmark) + str([dx, dy])
+            # 添加到图片数据集
+            self.imgs.append(imgT)
+            # 添加到关键点数据集
+            self.landmarks.append(landmark)
+        else:
+            img = cv2.imread(self.path)
+            imgT = cv2.resize(img, (self.image_size, self.image_size))
+            height, width, channel = img.shape
+            boxsize = min(height,width)
+            while  is_train and (len(self.imgs) < repeat):
+                cx, cy = int(width / 2), int(height / 2)
+                angle = np.random.randint(-30, 30)
+                # 将中心点随机偏移，作为图像的旋转中心
+                cx = cx + int(np.random.randint(-boxsize*0.1, boxsize*0.1))
+                cy = cy + int(np.random.randint(-boxsize * 0.1, boxsize * 0.1))
+                # 计算变换矩阵和返回变换后的landmarks
+                M, _ = rotate(angle, (cx,cy), self.landmark)
+                # 将图片按照变换矩阵进行仿射变换 输入图像,M: 变换矩阵,dsize:输出图像的大小
+                imgT = cv2.warpAffine(img, M, (int(img.shape[1]*1.1), int(img.shape[0]*1.1)))
+                imgT = cv2.resize(imgT, (self.image_size, self.image_size))
+                self.imgs.append(imgT)
+            self.imgs.append(imgT)
 
-        if is_train:
+        if is_train and self.facecls == 1:
             while len(self.imgs) < repeat:
                 # 绕随机中心点做随机旋转(-30,30)
                 angle = np.random.randint(-30, 30)
@@ -174,30 +197,41 @@ class ImageDate():
         # 返回一系列增强后的图像labels
         labels = []
         # TRACKED_POINTS = [0, 2, 3, 5, 6, 7, 8, 9, 10, 12, 11, 19, 20, 15]
-        for i, (img, lanmark) in enumerate(zip(self.imgs, self.landmarks)):
-            assert lanmark.shape == (21, 2)
-            # 生成image保存名
-            save_path = os.path.join(path, prefix+'_'+str(i)+'.png')
-            # 名字不能重复
-            assert not os.path.exists(save_path), save_path
-            # 保存增强后的image
-            cv2.imwrite(save_path, img)
-            # # 获取欧拉角的前提是获得跟踪点的坐标的值
-            # euler_angles_landmark = []
-            # for index in TRACKED_POINTS:
-            #     euler_angles_landmark.append(lanmark[index])
-            # euler_angles_landmark = np.asarray(euler_angles_landmark).reshape((-1, 28))
-            # # Utils/utils.py近似计算欧拉角的函数
-            # pitch, yaw, roll = calculate_pitch_yaw_roll(euler_angles_landmark[0])
-            # # 将欧拉角保存为float数组
-            # euler_angles = np.asarray((pitch, yaw, roll), dtype=np.float32)
-            # # 将欧拉角三个值用空格隔开变成字符串
-            # euler_angles_str = ' '.join(list(map(str, euler_angles)))
-            # 将landmark还原成字符串
-            landmark_str = ' '.join(list(map(str,lanmark.reshape(-1).tolist())))
-            # 图片文件位置，坐标点标记，属性标记，欧拉角
-            label = '{} {}\n'.format(save_path, landmark_str)
-            labels.append(label)
+        if self.facecls == 1:
+            for i, (img, lanmark) in enumerate(zip(self.imgs, self.landmarks)):
+                assert lanmark.shape == (21, 2)
+                # 生成image保存名
+                save_path = os.path.join(path, prefix+'_'+str(i)+'.png')
+                # 名字不能重复
+                assert not os.path.exists(save_path), save_path
+                # 保存增强后的image
+                cv2.imwrite(save_path, img)
+                # # 获取欧拉角的前提是获得跟踪点的坐标的值
+                # euler_angles_landmark = []
+                # for index in TRACKED_POINTS:
+                #     euler_angles_landmark.append(lanmark[index])
+                # euler_angles_landmark = np.asarray(euler_angles_landmark).reshape((-1, 28))
+                # # Utils/utils.py近似计算欧拉角的函数
+                # pitch, yaw, roll = calculate_pitch_yaw_roll(euler_angles_landmark[0])
+                # # 将欧拉角保存为float数组
+                # euler_angles = np.asarray((pitch, yaw, roll), dtype=np.float32)
+                # # 将欧拉角三个值用空格隔开变成字符串
+                # euler_angles_str = ' '.join(list(map(str, euler_angles)))
+                # 将landmark还原成字符串
+                landmark_str = ' '.join(list(map(str,lanmark.reshape(-1).tolist())))
+                # 图片文件位置，坐标点标记，属性标记，欧拉角
+                label = '{} {} 1\n'.format(save_path, landmark_str)
+                labels.append(label)
+        elif self.facecls == 0:
+            for i, img in enumerate(self.imgs):
+                # 生成image保存名
+                save_path = os.path.join(path, prefix + '_' + str(i) + '.png')
+                # 名字不能重复
+                assert not os.path.exists(save_path), save_path
+                # 保存增强后的image
+                cv2.imwrite(save_path, img)
+                label = '{} 0\n'.format(save_path)
+                labels.append(label)
         return labels
 
 # 增强处理后的图片和label的输出目录，原始label.txt，是否为训练的样本
@@ -240,10 +274,32 @@ def removeInvalidImg(srcImgList):
         if os.path.isfile(picDir):
             resList.append(item)
     return resList
+
+def IoU(box, boxes):
+    # box = (x1, y1, x2, y2)
+    box_area = (box[2] - box[0] + 1) * (box[3] - box[1] + 1)
+    area = (boxes[:, 2] - boxes[:, 0] + 1) * (boxes[:, 3] - boxes[:, 1] + 1)
+
+    # abtain the offset of the interception of union between crop_box and gt_box
+    xx1 = np.maximum(box[0], boxes[:, 0])
+    yy1 = np.maximum(box[1], boxes[:, 1])
+    xx2 = np.minimum(box[2], boxes[:, 2])
+    yy2 = np.minimum(box[3], boxes[:, 3])
+
+    # compute the width and height of the bounding box
+    w = np.maximum(0, xx2 - xx1 + 1)
+    h = np.maximum(0, yy2 - yy1 + 1)
+
+    inter = w * h
+    ovr = inter / (box_area + area - inter)
+    return ovr
+
 # 按比例ratio生成train.txt test.txt
-def loadMetaDataList(SrcImage, ratio):
+def loadMetaDataList(SrcImage, ratio, faceCls = False):
     folderList = ['I', 'II']
     tmpList = []
+    imgRect = {}
+    faceclsList = []
     for folderName in folderList:
         picFileDir = os.path.join(SrcImage ,folderName)
         labelFileDir = os.path.join(picFileDir, 'label.txt')
@@ -251,23 +307,62 @@ def loadMetaDataList(SrcImage, ratio):
             lines = f.readlines()
         tmpList.extend(list(map((picFileDir + '/').__add__, lines)))
     resLines = removeInvalidImg(tmpList)
-    rd.shuffle(resLines)
-    total = len(resLines)
+    if (faceCls):
+        for line in resLines:
+            imgPath = line.split(' ')[0]
+            if imgPath not in imgRect:
+                imgRect[imgPath] = []
+            bbox = list(map(int, list(map(float, line.split(' ')[1:5]))))
+            landmark = list(map(float, line.split(' ')[5:]))
+            landmark_str = ' '.join(list(map(str, landmark)))
+            bbox_str = ' '.join(list(map(str, bbox)))
+            imgRect[imgPath].append(bbox)
+            tmp = '{} {} {} 1\n'.format(imgPath, bbox_str, landmark_str)
+            faceclsList.append(tmp)
+        for item in imgRect:
+            # print(imgRect[item])
+            img = cv2.imread(item)
+            height, width, channel = img.shape
+            imgRectArry = np.array(imgRect[item])
+            # print(imgRectArry)
+            # for rect in imgRectArry:
+            #     cv2.rectangle(img, (rect[0], rect[1]), (rect[2], rect[3]), (0, 255, 0), 3)
+            while True:
+                size = np.random.randint(min(width, height) / 4, min(width, height) / 2)
+                nx = np.random.randint(0, width - size)
+                ny = np.random.randint(0, height - size)
+                crop_box = np.array([nx, ny, nx + size, ny + size])
+                iou = IoU(crop_box, imgRectArry)
+                # print('crop_box:{}'.format(crop_box))
+                # print('iou:{}'.format(iou))
+                if np.max(iou) < 0.3:
+                    break;
+            cropped_im = img[ny: ny + size, nx: nx + size, :]
+            # cv2.imshow('result', cropped_im)
+            # cv2.rectangle(img, (crop_box[0], crop_box[1]), (crop_box[2], crop_box[3]), (0, 0, 255), 3)
+            # cv2.imshow('result', img)
+            # cv2.waitKey(0)
+            # cv2.destroyAllWindows()
+            bbox_str = ' '.join(list(map(str, crop_box)))
+            tmp = '{} {} 0\n'.format(item, bbox_str)
+            faceclsList.append(tmp)
+    rd.shuffle(faceclsList)
+    total = len(faceclsList)
     trainNums = int(total * ratio) if int(total * ratio) < total else total
     trainLabelTxt = os.path.join(SrcImage,'train_linear.txt')
     testLabelTxt = os.path.join(SrcImage,'test_linear.txt')
     with open(trainLabelTxt, 'w') as wf:
-        for wl in resLines[:trainNums]:
+        for wl in faceclsList[:trainNums]:
             wf.write(wl)
     with open(testLabelTxt, 'w') as wf:
-        for wl in resLines[trainNums:]:
+        for wl in faceclsList[trainNums:]:
             wf.write(wl)
 
 if __name__ == '__main__':
     # 获取当前脚本的文件目录
     root_dir = os.path.dirname(os.path.realpath(__file__))
     SrcImage = os.path.join(root_dir, 'SrcImage')
-    loadMetaDataList(SrcImage, 0.7)
+    loadMetaDataList(SrcImage, 0.7, faceCls = True)
     Mirror_file = root_dir + '/' + 'Mirror21.txt'
     landmarkDirs = ['test_linear.txt', 'train_linear.txt']
     landmarkDirs = list(map((root_dir + '/' + 'SrcImage' + '/').__add__, landmarkDirs))
