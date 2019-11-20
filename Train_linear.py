@@ -42,6 +42,7 @@ def train(train_loader, linear_backbone, auxiliarynet, criterion, optimizer, cur
         landmark_gt = samples['landmarks']
         cls_gt = samples['facecls']
         cls_gt = cls_gt.reshape(-1, 1)
+
         img.requires_grad = False
         img = img.cuda(non_blocking=True)
 
@@ -91,10 +92,10 @@ def validate(my_val_dataloader, linear_backbone, auxiliarynet, criterion, cur_ep
 
             landmark, out1 = linear_backbone(img)
             cls = auxiliarynet(out1)
+            cls_loss = nn.BCELoss(size_average=False, reduce=False)
 
-            cls_loss = nn.BCEWithLogitsLoss()
-
-            loss = torch.mean(torch.sum((landmark_gt - landmark)**2,axis=1)) + cls_loss(cls, cls_gt)
+            print(torch.mean(cls_loss(cls, cls_gt)))
+            loss = torch.mean(torch.sum((landmark_gt - landmark)**2,axis=1))
             losses.append(loss.cpu().numpy())
 
     return np.mean(losses)
@@ -215,7 +216,7 @@ def parse_args():
         default='./Data/ODATA/TestData/labels.txt',
         type=str,
         metavar='PATH')
-    parser.add_argument('--train_batchsize', default=256, type=int)
+    parser.add_argument('--train_batchsize', default=512, type=int)
     parser.add_argument('--val_batchsize', default=8, type=int)
     args = parser.parse_args()
     return args

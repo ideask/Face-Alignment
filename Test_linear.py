@@ -7,7 +7,7 @@ import torch
 
 from torch.utils.data import DataLoader
 from DataLoader.linear import load_data
-from Models.linear import LinearNet
+from Models.linear import LinearNet, AuxiliaryNet
 
 
 def show_result(images, show_size=(1024, 1024), blank_size=2, window_name="merge"):
@@ -42,9 +42,9 @@ def show_result(images, show_size=(1024, 1024), blank_size=2, window_name="merge
     cv2.imshow(window_name, merge_img)
     cv2.waitKey(0)
 
-def validate(my_val_dataloader, linear_backbone):
+def validate(my_val_dataloader, linear_backbone, auxiliarynet):
     linear_backbone.eval()
-
+    auxiliarynet.eval()
     with torch.no_grad():
         losses = []
         losses_ION = []
@@ -52,6 +52,12 @@ def validate(my_val_dataloader, linear_backbone):
         for samples in my_val_dataloader:
             img = samples['image']
             landmark_gt = samples['landmarks']
+            cls_gt = samples['facecls']
+            cls_gt = cls_gt.reshape(-1, 1)
+
+            cls_gt.requires_grad = False
+            cls_gt = cls_gt.cuda(non_blocking=True)
+
             img.requires_grad = False
             img = img.cuda(non_blocking=True)
 
@@ -59,9 +65,14 @@ def validate(my_val_dataloader, linear_backbone):
             landmark_gt = landmark_gt.cuda(non_blocking=True)
 
             linear_backbone = linear_backbone.cuda()
+            auxiliarynet = auxiliarynet.cuda()
 
-            landmarks = linear_backbone(img)
-
+            landmarks, out1 = linear_backbone(img)
+            cls = auxiliarynet(out1)
+            cls = cls.cpu().numpy()
+            cls[cls >= 0.5] = True
+            cls[cls < 0.5] = False
+            # print(cls[0], cls_gt[0])
             loss = torch.mean(
                 torch.sqrt(torch.sum((landmark_gt - landmarks)**2, axis=1))
                 )
@@ -83,18 +94,17 @@ def validate(my_val_dataloader, linear_backbone):
             img_clone = cv2.imread("xxx.jpg")
 
             pre_landmark = landmarks[0] * [112, 112]
-
             landmark_gt = landmark_gt.reshape(landmark_gt.shape[0], -1, 2)
             pre_landmark_gt = landmark_gt[0] * [112, 112]
+            if cls[0] == True:
+                for (x, y) in pre_landmark.astype(np.int32):
+                    print("x:{0:}, y:{1:}".format(x, y))
+                    cv2.circle(img_clone, (x, y), 2, (0,255,0),-1)
 
-            for (x, y) in pre_landmark.astype(np.int32):
-                print("x:{0:}, y:{1:}".format(x, y))
-                cv2.circle(img_clone, (x, y), 2, (0,255,0),-1)
-
-            for (x, y) in pre_landmark_gt.astype(np.int32):
-                print("x:{0:}, y:{1:}".format(x, y))
-                cv2.circle(img_clone, (x, y), 2, (0,0,255),-1)
-            img_show.append(img_clone)
+                for (x, y) in pre_landmark_gt.astype(np.int32):
+                    print("x:{0:}, y:{1:}".format(x, y))
+                    cv2.circle(img_clone, (x, y), 2, (0,0,255),-1)
+                img_show.append(img_clone)
 
         show_result(img_show)
             
@@ -109,19 +119,20 @@ def main(args):
     checkpoint = torch.load(args.model_path)
 
     linear_backbone = LinearNet().cuda()
+    auxiliarynet = AuxiliaryNet().cuda()
 
     linear_backbone.load_state_dict(checkpoint['linear_backbone'])
-
+    auxiliarynet.load_state_dict(checkpoint['auxiliarynet'])
 
     my_val_dataset = load_data(args.test_dataset)
     my_val_dataloader = DataLoader(
         my_val_dataset, batch_size=8, shuffle=True, num_workers=0)
 
-    validate(my_val_dataloader, linear_backbone)
+    validate(my_val_dataloader, linear_backbone, auxiliarynet)
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Testing')
-    parser.add_argument('--model_path', default="./CheckPoints/snapshot_linear/checkpoint.pth.tar", type=str)
+    parser.add_argument('--model_path', default="./CheckPoints/snapshot_linear/checkpoint2.pth.tar", type=str)
     parser.add_argument('--test_dataset', default='./Data/ODATA/TestData/labels.txt', type=str)
     args = parser.parse_args()
     return args

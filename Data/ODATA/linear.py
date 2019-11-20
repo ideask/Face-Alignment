@@ -120,20 +120,20 @@ class ImageDate():
         else:
             img = cv2.imread(self.path)
             imgT = cv2.resize(img, (self.image_size, self.image_size))
-            height, width, channel = img.shape
-            boxsize = min(height,width)
-            while  is_train and (len(self.imgs) < repeat):
-                cx, cy = int(width / 2), int(height / 2)
-                angle = np.random.randint(-30, 30)
-                # 将中心点随机偏移，作为图像的旋转中心
-                cx = cx + int(np.random.randint(-boxsize*0.1, boxsize*0.1))
-                cy = cy + int(np.random.randint(-boxsize * 0.1, boxsize * 0.1))
-                # 计算变换矩阵和返回变换后的landmarks
-                M, _ = rotate(angle, (cx,cy), self.landmark)
-                # 将图片按照变换矩阵进行仿射变换 输入图像,M: 变换矩阵,dsize:输出图像的大小
-                imgT = cv2.warpAffine(img, M, (int(img.shape[1]*1.1), int(img.shape[0]*1.1)))
-                imgT = cv2.resize(imgT, (self.image_size, self.image_size))
-                self.imgs.append(imgT)
+            # height, width, channel = img.shape
+            # boxsize = min(height,width)
+            # while  is_train and (len(self.imgs) < repeat):
+            #     cx, cy = int(width / 2), int(height / 2)
+            #     angle = np.random.randint(-30, 30)
+            #     # 将中心点随机偏移，作为图像的旋转中心
+            #     cx = cx + int(np.random.randint(-boxsize*0.1, boxsize*0.1))
+            #     cy = cy + int(np.random.randint(-boxsize * 0.1, boxsize * 0.1))
+            #     # 计算变换矩阵和返回变换后的landmarks
+            #     M, _ = rotate(angle, (cx,cy), self.landmark)
+            #     # 将图片按照变换矩阵进行仿射变换 输入图像,M: 变换矩阵,dsize:输出图像的大小
+            #     imgT = cv2.warpAffine(img, M, (int(img.shape[1]*1.1), int(img.shape[0]*1.1)))
+            #     imgT = cv2.resize(imgT, (self.image_size, self.image_size))
+            #     self.imgs.append(imgT)
             self.imgs.append(imgT)
 
         if is_train and self.facecls == 1:
@@ -253,7 +253,7 @@ def get_dataset_list(outDir, landmarkDir, is_train):
             # imgDir + 图片名
             img_name = Img.path
             # 是否为训练样本， 图片增强次数， 镜像之后坐标点
-            Img.load_data(is_train, 50, Mirror_file)
+            Img.load_data(is_train, 10, Mirror_file)
             # os.path.split（）返回文件的路径和文件名
             _, filename = os.path.split(img_name)
             # os.path.splitext(“文件路径”)    分离文件名与扩展名；默认返回(fname, fextension)元组，可做分片操作
@@ -327,7 +327,9 @@ def loadMetaDataList(SrcImage, ratio, faceCls = False):
             # print(imgRectArry)
             # for rect in imgRectArry:
             #     cv2.rectangle(img, (rect[0], rect[1]), (rect[2], rect[3]), (0, 255, 0), 3)
-            while True:
+            neg_num = 0
+            default_num_neg = 40
+            while neg_num < default_num_neg:
                 size = np.random.randint(min(width, height) / 4, min(width, height) / 2)
                 nx = np.random.randint(0, width - size)
                 ny = np.random.randint(0, height - size)
@@ -336,16 +338,17 @@ def loadMetaDataList(SrcImage, ratio, faceCls = False):
                 # print('crop_box:{}'.format(crop_box))
                 # print('iou:{}'.format(iou))
                 if np.max(iou) < 0.3:
-                    break;
-            cropped_im = img[ny: ny + size, nx: nx + size, :]
+                    bbox_str = ' '.join(list(map(str, crop_box)))
+                    tmp = '{} {} 0\n'.format(item, bbox_str)
+                    faceclsList.append(tmp)
+                    neg_num += 1
+            # cropped_im = img[ny: ny + size, nx: nx + size, :]
             # cv2.imshow('result', cropped_im)
             # cv2.rectangle(img, (crop_box[0], crop_box[1]), (crop_box[2], crop_box[3]), (0, 0, 255), 3)
             # cv2.imshow('result', img)
             # cv2.waitKey(0)
             # cv2.destroyAllWindows()
-            bbox_str = ' '.join(list(map(str, crop_box)))
-            tmp = '{} {} 0\n'.format(item, bbox_str)
-            faceclsList.append(tmp)
+
     rd.shuffle(faceclsList)
     total = len(faceclsList)
     trainNums = int(total * ratio) if int(total * ratio) < total else total

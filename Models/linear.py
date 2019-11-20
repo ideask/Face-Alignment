@@ -12,7 +12,9 @@ class AuxiliaryNet(nn.Module):
         self.conv2 = nn.Conv2d(24, 24, 3, 1, 0)
         self.bn2 = nn.BatchNorm2d(24)
         self.prelu2 = nn.PReLU()
-        self.fc = nn.Linear(8 * 8 * 24, 1)
+        self.avg_pool = nn.AvgPool2d(8, 8)
+        self.conv3 = nn.Conv2d(24, 1, 1, 1, 0)
+        self.Sigmoid = nn.Sigmoid()
 
 
     def forward(self, x):
@@ -20,8 +22,9 @@ class AuxiliaryNet(nn.Module):
         # print('x: after conv1 and pool shape should be 32x24x10x10: ', x.shape)
         x = self.prelu2(self.bn2(self.conv2(x)))
         # print('x: after conv2 and pool shape should be 32x24x8x8: ', x.shape)
-        ip = x.view(-1, 8 * 8 * 24)
-        x = self.fc(ip)
+        ip = self.avg_pool(x)
+        x = self.conv3(ip)
+        x = self.Sigmoid(x)
         return x
 
 
